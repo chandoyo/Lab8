@@ -1,5 +1,8 @@
 # Lab8_Starter
 
+# Author
+Claudia Handoyo
+
 ## Check your understanding q's (FILL OUT)
 1. In your own words: Where would you fit your automated tests in your Bujo project development pipeline? (just write the letter)
    - 1 (Within a Github action that runs whenever code is pushed)
@@ -11,8 +14,8 @@
    - Yes, max message length is just one part of the messaging feature to test, so a unit test would be suitable
 
 4. What do you expect to happen if we run our puppeteer tests with the field “headless” set to true?
-   - The browser UI may not be created
+   - The browser UI may not be created when the tests are run
 
 5. What would your beforeAll callback look like if you wanted to start from the settings page before every test case?
-   - 
+   - We either have to click on the settings icon or use await page.click("img"); to navigate there first
 
