@@ -28,11 +28,16 @@ describe('Basic user flow for SPA ', () => {
 
   it('Test3: Clicking first <journal-entry>, new URL should contain /#entry1', async () => {
     // implement test3: Clicking on the first journal entry should update the URL to contain “/#entry1”
+    await page.click('journal-entry');
+    expect(page.url()).toContain('/#entry1');
 
   });
 
   it('Test4: On first Entry page - checking page header title', async () => {
     // implement test4: Clicking on the first journal entry should update the header text to “Entry 1” 
+    
+    const title = await page.$eval("h1", (header) => { return header.innerHTML; });
+    expect(title).toBe("Entry 1");
 
   });
 
@@ -50,16 +55,40 @@ describe('Basic user flow for SPA ', () => {
         }
       */
 
+    const entryFill = { 
+        title: 'You like jazz?',
+        date: '4/25/2021',
+        content: "According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible.",
+        image: {
+          src: 'https://i1.wp.com/www.thepopcornmuncher.com/wp-content/uploads/2016/11/bee-movie.jpg?resize=800%2C455',
+          alt: 'bee with sunglasses'
+      },
+    };
+
+    const realEntry = await page.$eval("entry-page", (entryPage) => {
+      return entryPage.entry;
+    });
+    expect(realEntry).toEqual(entryFill);
+
+
   }, 10000);
 
   it('Test6: On first Entry page - checking <body> element classes', async () => {
     // implement test6: Clicking on the first journal entry should update the class attribute of <body> to ‘single-entry’
+
+    const classAttribute = await page.$eval('body', (entryPage) => {
+      return entryPage.className;
+    });
+
+    expect(classAttribute).toBe('single-entry');
 
   });
 
   it('Test7: Clicking the settings icon, new URL should contain #settings', async () => {
     // implement test7: Clicking on the settings icon should update the URL to contain “/#settings”
 
+    await page.click('img');
+    expect(page.url()).toContain('/#settings');
   });
 
   it('Test8: On Settings page - checking page header title', async () => {
